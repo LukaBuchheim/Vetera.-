@@ -7,6 +7,7 @@ const DEFAULT_STATE: AppState = {
   contracts: [],
   forfeits: [],
   paymentMethod: null,
+  committedCharities: [],
   onboarded: false,
   userName: '',
   goals: [],
@@ -62,6 +63,22 @@ export function useAppState() {
     setState(s => ({ ...s, paymentMethod: pm }));
   }, []);
 
+  const commitCharity = useCallback((id: string) => {
+    setState(s => ({
+      ...s,
+      committedCharities: s.committedCharities.includes(id)
+        ? s.committedCharities
+        : [...s.committedCharities, id],
+    }));
+  }, []);
+
+  const uncommitCharity = useCallback((id: string) => {
+    setState(s => ({
+      ...s,
+      committedCharities: s.committedCharities.filter(c => c !== id),
+    }));
+  }, []);
+
   const completeOnboarding = useCallback((userName: string, goals: string[]) => {
     setState(s => ({ ...s, onboarded: true, userName, goals }));
   }, []);
@@ -84,7 +101,7 @@ export function useAppState() {
     return count;
   })();
 
-  // Computed: hours saved (estimated: 1hr per active contract per active day in schedule)
+  // Computed: hours saved
   const hoursSaved = (() => {
     let total = 0;
     for (const c of state.contracts) {
@@ -105,7 +122,7 @@ export function useAppState() {
     impactByCharity[f.charity] = (impactByCharity[f.charity] || 0) + f.amount;
   }
 
-  // Computed: 7-day activity (forfeit count per day)
+  // Computed: 7-day activity
   const weeklyActivity: { date: string; amount: number }[] = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
@@ -127,6 +144,7 @@ export function useAppState() {
     contracts: state.contracts,
     forfeits: state.forfeits,
     paymentMethod: state.paymentMethod,
+    committedCharities: state.committedCharities,
     onboarded: state.onboarded,
     userName: state.userName,
     goals: state.goals,
@@ -141,6 +159,8 @@ export function useAppState() {
     toggleContract,
     addForfeit,
     setPaymentMethod,
+    commitCharity,
+    uncommitCharity,
     completeOnboarding,
   };
 }

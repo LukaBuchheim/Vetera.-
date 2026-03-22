@@ -7,6 +7,7 @@ interface Props {
   onCancel: () => void;
   existingPaymentMethod: PaymentMethod | null;
   onSavePaymentMethod: (pm: PaymentMethod) => void;
+  committedCharities: string[];
 }
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
@@ -26,7 +27,7 @@ function formatCardNumber(raw: string): string {
   return digits.replace(/(.{4})/g, '$1 ').trim();
 }
 
-export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod, onSavePaymentMethod }: Props) {
+export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod, onSavePaymentMethod, committedCharities }: Props) {
   const [step, setStep] = useState(1);
 
   // Step 1 — app selection
@@ -315,7 +316,13 @@ export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod,
           <h2>Choose your charity</h2>
           <p className="step-sub">Bypass fees go here.</p>
           <div className="charity-list">
-            {CHARITIES.map(c => (
+            {committedCharities.length > 0 && (
+              <div className="charity-group-label">Your commitments</div>
+            )}
+            {[
+              ...CHARITIES.filter(c => committedCharities.includes(c.id)),
+              ...CHARITIES.filter(c => !committedCharities.includes(c.id)),
+            ].map(c => (
               <button
                 key={c.name}
                 className={`charity-row ${charity === c.name ? 'selected' : ''}`}
@@ -323,6 +330,9 @@ export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod,
               >
                 <span className="charity-icon">{c.icon}</span>
                 <span>{c.name}</span>
+                {committedCharities.includes(c.id) && charity !== c.name && (
+                  <span className="committed-dot-sm" />
+                )}
                 {charity === c.name && <span className="check">✓</span>}
               </button>
             ))}

@@ -1,11 +1,14 @@
+type Tab = 'overview' | 'contracts' | 'history' | 'charities';
+
 interface Props {
-  activeTab: 'overview' | 'contracts' | 'history';
-  onChange: (tab: 'overview' | 'contracts' | 'history') => void;
+  activeTab: Tab;
+  onChange: (tab: Tab) => void;
 }
 
 const TABS = [
   { id: 'overview' as const, icon: '📊', label: 'Overview' },
   { id: 'contracts' as const, icon: '🔒', label: 'Contracts' },
+  { id: 'charities' as const, icon: '🏥', label: 'Charities' },
   { id: 'history' as const, icon: '🕒', label: 'History' },
 ];
 

@@ -54,7 +54,6 @@ export default function App() {
         <div className="app-shell">
           <OnboardingGoal
             onComplete={(goals) => {
-              // Create a default contract for each selected app
               const defaultCharity = CHARITIES[0];
               for (const appName of pendingApps) {
                 const appObj = APPS.find(a => a.name === appName);
@@ -108,6 +107,7 @@ export default function App() {
           contracts={state.contracts}
           forfeits={state.forfeits}
           paymentMethod={state.paymentMethod}
+          committedCharities={state.committedCharities}
           streak={state.streak}
           hoursSaved={state.hoursSaved}
           totalDonated={state.totalDonated}
@@ -118,6 +118,8 @@ export default function App() {
           onRemoveContract={state.removeContract}
           onBypassContract={handleBypass}
           onNewContract={handleNewContract}
+          onCommitCharity={state.commitCharity}
+          onUncommitCharity={state.uncommitCharity}
         />
       )}
       {screen.kind === 'setup' && (
@@ -126,6 +128,7 @@ export default function App() {
           onCancel={() => setScreen({ kind: 'dashboard' })}
           existingPaymentMethod={state.paymentMethod}
           onSavePaymentMethod={state.setPaymentMethod}
+          committedCharities={state.committedCharities}
         />
       )}
       {screen.kind === 'block' && (
@@ -133,6 +136,7 @@ export default function App() {
           contract={screen.contract}
           paymentMethod={state.paymentMethod}
           streak={state.streak}
+          committedCharities={state.committedCharities}
           onStayFocused={() => setScreen({ kind: 'dashboard' })}
           onCharged={handleCharged}
         />

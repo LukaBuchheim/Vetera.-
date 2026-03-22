@@ -5,11 +5,15 @@ import ImpactSection from './ImpactSection';
 import WeeklyChart from './WeeklyChart';
 import BottomNav from './BottomNav';
 import ContractCard from './ContractCard';
+import CharitiesTab from './CharitiesTab';
+
+type Tab = 'overview' | 'contracts' | 'history' | 'charities';
 
 interface Props {
   contracts: AppContract[];
   forfeits: Forfeit[];
   paymentMethod: PaymentMethod | null;
+  committedCharities: string[];
   streak: number;
   hoursSaved: number;
   totalDonated: number;
@@ -20,14 +24,16 @@ interface Props {
   onRemoveContract: (id: string) => void;
   onBypassContract: (contract: AppContract) => void;
   onNewContract: () => void;
+  onCommitCharity: (id: string) => void;
+  onUncommitCharity: (id: string) => void;
 }
 
-type Tab = 'overview' | 'contracts' | 'history';
-
 export default function Dashboard({
-  contracts, forfeits, paymentMethod, streak, hoursSaved,
-  totalDonated, daysActive, impactByCharity, weeklyActivity,
+  contracts, forfeits, paymentMethod, committedCharities,
+  streak, hoursSaved, totalDonated, daysActive,
+  impactByCharity, weeklyActivity,
   onToggleContract, onRemoveContract, onBypassContract, onNewContract,
+  onCommitCharity, onUncommitCharity,
 }: Props) {
   const [tab, setTab] = useState<Tab>('overview');
 
@@ -88,6 +94,14 @@ export default function Dashboard({
           </div>
         )}
 
+        {tab === 'charities' && (
+          <CharitiesTab
+            committedCharities={committedCharities}
+            onCommit={onCommitCharity}
+            onUncommit={onUncommitCharity}
+          />
+        )}
+
         {tab === 'history' && (
           <div className="tab-history">
             {forfeits.length === 0 ? (
@@ -105,7 +119,7 @@ export default function Dashboard({
                       <span className="forfeit-time">{new Date(f.timestamp).toLocaleString()}</span>
                     </div>
                     <div className="forfeit-detail">
-                      <span>{f.charity}</span>
+                      <span>{f.charityIcon} {f.charity}</span>
                       <span className="forfeit-amt mono">${f.amount}</span>
                     </div>
                   </div>
