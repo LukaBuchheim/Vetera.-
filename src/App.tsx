@@ -53,7 +53,7 @@ export default function App() {
       return (
         <div className="app-shell">
           <OnboardingGoal
-            onComplete={(goal) => {
+            onComplete={(goals) => {
               // Create a default contract for each selected app
               const defaultCharity = CHARITIES[0];
               for (const appName of pendingApps) {
@@ -76,7 +76,7 @@ export default function App() {
                 };
                 state.addContract(contract);
               }
-              state.completeOnboarding('', goal);
+              state.completeOnboarding('', goals);
             }}
           />
         </div>

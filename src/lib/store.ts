@@ -40,7 +40,7 @@ export interface AppState {
   paymentMethod: PaymentMethod | null;
   onboarded: boolean;
   userName: string;
-  goal: string;
+  goals: string[];
 }
 
 export const GOALS = [

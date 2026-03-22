@@ -9,7 +9,7 @@ const DEFAULT_STATE: AppState = {
   paymentMethod: null,
   onboarded: false,
   userName: '',
-  goal: '',
+  goals: [],
 };
 
 function loadState(): AppState {
@@ -62,8 +62,8 @@ export function useAppState() {
     setState(s => ({ ...s, paymentMethod: pm }));
   }, []);
 
-  const completeOnboarding = useCallback((userName: string, goal: string) => {
-    setState(s => ({ ...s, onboarded: true, userName, goal }));
+  const completeOnboarding = useCallback((userName: string, goals: string[]) => {
+    setState(s => ({ ...s, onboarded: true, userName, goals }));
   }, []);
 
   // Computed: streak (consecutive days with no forfeits, from today going back)
@@ -129,7 +129,7 @@ export function useAppState() {
     paymentMethod: state.paymentMethod,
     onboarded: state.onboarded,
     userName: state.userName,
-    goal: state.goal,
+    goals: state.goals,
     streak,
     hoursSaved,
     impactByCharity,
