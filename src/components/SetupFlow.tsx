@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { AppContract, SchedulePeriod, PaymentMethod } from '../lib/store';
 import { APPS, CHARITIES } from '../lib/store';
+import ScrollWheelPicker from './ScrollWheelPicker';
 
 interface Props {
   onComplete: (contract: AppContract) => void;
@@ -40,7 +41,6 @@ export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod,
 
   // Step 3 — bypass fee
   const [bypassFee, setBypassFee] = useState(5);
-  const [feeInput, setFeeInput] = useState('5.00');
 
   // Step 4 — payment method
   const [cardNumber, setCardNumber] = useState('');
@@ -206,54 +206,26 @@ export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod,
       {step === 3 && (
         <div className="setup-step">
           <h2>Set bypass fee</h2>
-          <p className="step-sub">How much will bypassing cost you? ($0.50 – $1,000)</p>
+          <p className="step-sub">Scroll to pick your amount.</p>
 
-          <div className="fee-display">
-            <span className="fee-currency">$</span>
-            <input
-              className="fee-big-input"
-              type="number"
+          <div className="fee-wheel-wrap">
+            <span className="fee-wheel-currency">$</span>
+            <ScrollWheelPicker
+              value={bypassFee}
+              onChange={setBypassFee}
               min={0.50}
               max={1000}
               step={0.50}
-              value={feeInput}
-              onChange={e => {
-                setFeeInput(e.target.value);
-                const n = parseFloat(e.target.value);
-                if (!isNaN(n)) setBypassFee(Math.min(1000, Math.max(0.50, n)));
-              }}
-              onBlur={() => {
-                const clamped = Math.min(1000, Math.max(0.50, bypassFee));
-                setBypassFee(clamped);
-                setFeeInput(clamped.toFixed(2));
-              }}
+              format={v => v % 1 === 0 ? String(v) : v.toFixed(2)}
             />
           </div>
 
-          <input
-            type="range"
-            className="fee-slider"
-            min={0.50}
-            max={1000}
-            step={0.50}
-            value={bypassFee}
-            onChange={e => {
-              const n = parseFloat(e.target.value);
-              setBypassFee(n);
-              setFeeInput(n.toFixed(2));
-            }}
-          />
-          <div className="fee-slider-labels">
-            <span>$0.50</span>
-            <span>$1,000</span>
-          </div>
-
           <div className="fee-presets">
-            {[0.50, 1, 2, 5, 10, 25, 50, 100].map(amt => (
+            {[0.50, 1, 5, 10, 25, 50, 100, 500].map(amt => (
               <button
                 key={amt}
                 className={`fee-pill ${bypassFee === amt ? 'selected' : ''}`}
-                onClick={() => { setBypassFee(amt); setFeeInput(amt.toFixed(2)); }}
+                onClick={() => setBypassFee(amt)}
               >
                 ${amt % 1 === 0 ? amt : amt.toFixed(2)}
               </button>
