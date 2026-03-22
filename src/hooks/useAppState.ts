@@ -7,6 +7,9 @@ const DEFAULT_STATE: AppState = {
   contracts: [],
   forfeits: [],
   paymentMethod: null,
+  onboarded: false,
+  userName: '',
+  goal: '',
 };
 
 function loadState(): AppState {
@@ -57,6 +60,10 @@ export function useAppState() {
 
   const setPaymentMethod = useCallback((pm: PaymentMethod | null) => {
     setState(s => ({ ...s, paymentMethod: pm }));
+  }, []);
+
+  const completeOnboarding = useCallback((userName: string, goal: string) => {
+    setState(s => ({ ...s, onboarded: true, userName, goal }));
   }, []);
 
   // Computed: streak (consecutive days with no forfeits, from today going back)
@@ -120,6 +127,9 @@ export function useAppState() {
     contracts: state.contracts,
     forfeits: state.forfeits,
     paymentMethod: state.paymentMethod,
+    onboarded: state.onboarded,
+    userName: state.userName,
+    goal: state.goal,
     streak,
     hoursSaved,
     impactByCharity,
@@ -131,5 +141,6 @@ export function useAppState() {
     toggleContract,
     addForfeit,
     setPaymentMethod,
+    completeOnboarding,
   };
 }

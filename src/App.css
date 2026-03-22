@@ -1,3 +1,309 @@
+/* ── Landing Screen ── */
+.landing {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+.landing-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,92,252,0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.landing-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px;
+  gap: 28px;
+  position: relative;
+}
+
+.landing-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.landing-logo-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.landing-logo-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+.landing-headline {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--text-h);
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.landing-sub {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.landing-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.landing-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px 0 40px;
+  position: relative;
+}
+
+.btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: #fff;
+  color: #1a1a2e;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.btn-google:active { transform: scale(0.98); }
+.google-icon { flex-shrink: 0; }
+
+.landing-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--border);
+  font-size: 12px;
+}
+
+.landing-divider::before,
+.landing-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.landing-divider span { color: var(--text); }
+
+.btn-email {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.landing-legal {
+  font-size: 11px;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0.7;
+}
+
+/* ── Onboarding Shared ── */
+.onboarding-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: 0 20px;
+}
+
+.onboarding-top {
+  padding-top: 52px;
+  margin-bottom: 24px;
+}
+
+.onboarding-step-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.onboarding-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-h);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.onboarding-sub {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.onboarding-footer {
+  padding: 20px 0 40px;
+  margin-top: auto;
+}
+
+.onboarding-selection-count {
+  font-size: 13px;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.onboarding-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+}
+
+/* ── Onboarding Apps ── */
+.onboarding-app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.onboarding-app-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 12px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  color: var(--text-h);
+  font-size: 13px;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+
+.onboarding-app-tile:active { transform: scale(0.97); }
+
+.onboarding-app-tile.selected {
+  border-color: var(--accent);
+  background: rgba(124,92,252,0.12);
+}
+
+.onboarding-app-icon { font-size: 32px; }
+.onboarding-app-name { font-weight: 500; }
+
+.onboarding-check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* ── Onboarding Goal ── */
+.goal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.goal-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+  width: 100%;
+}
+
+.goal-card.selected {
+  border-color: var(--accent);
+  background: rgba(124,92,252,0.1);
+}
+
+.goal-icon { font-size: 26px; flex-shrink: 0; }
+
+.goal-text { flex: 1; }
+.goal-label { font-size: 14px; font-weight: 600; color: var(--text-h); margin-bottom: 3px; }
+.goal-sub { font-size: 12px; color: var(--text); }
+
+.goal-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  transition: border-color 0.15s, background 0.15s;
+  position: relative;
+}
+
+.goal-radio.checked {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.goal-radio.checked::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #fff;
+}
+
 /* ── App Shell ── */
 .app-shell {
   width: 100%;

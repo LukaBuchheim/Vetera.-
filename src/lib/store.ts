@@ -38,7 +38,19 @@ export interface AppState {
   contracts: AppContract[];
   forfeits: Forfeit[];
   paymentMethod: PaymentMethod | null;
+  onboarded: boolean;
+  userName: string;
+  goal: string;
 }
+
+export const GOALS = [
+  { id: 'doom-scroll', icon: '🌀', label: 'Stop doom scrolling', sub: 'Break the endless feed loop' },
+  { id: 'screen-time', icon: '📵', label: 'Reduce screen time', sub: 'Spend less time on your phone' },
+  { id: 'focus', icon: '🎯', label: 'Improve focus', sub: 'Get deep work done without distractions' },
+  { id: 'sleep', icon: '😴', label: 'Better sleep habits', sub: 'No more late-night scrolling' },
+  { id: 'family', icon: '👨‍👩‍👧', label: 'More time with family', sub: 'Be present for the people that matter' },
+  { id: 'read', icon: '📚', label: 'Read more, scroll less', sub: 'Replace scrolling with something real' },
+];
 
 export const CHARITIES = [
   { name: 'Red Cross', icon: '🏥' },
