@@ -193,7 +193,7 @@ export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod,
           </div>
           <div className="step-actions">
             <button className="btn-ghost" onClick={() => setStep(1)}>← Back</button>
-            <button className="btn-primary" disabled={schedules.length === 0} onClick={() => setStep(3)}>
+            <button className="btn-primary" disabled={schedules.length === 0 || schedules.some(s => s.days.length === 0 || s.start >= s.end)} onClick={() => setStep(3)}>
               Next →
             </button>
           </div>
@@ -222,7 +222,7 @@ export default function SetupFlow({ onComplete, onCancel, existingPaymentMethod,
               type="number"
               min={1}
               value={bypassFee}
-              onChange={e => setBypassFee(Number(e.target.value))}
+              onChange={e => setBypassFee(Math.max(1, Number(e.target.value)))}
             />
           </div>
           <div className="step-actions">

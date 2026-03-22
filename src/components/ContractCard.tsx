@@ -51,7 +51,7 @@ export default function ContractCard({ contract, onToggle, onRemove, onBypass }:
               {DAY_ORDER.map(day => (
                 <span
                   key={day}
-                  className={`day-dot ${sched.days.includes(day as typeof sched.days[number]) ? 'filled' : ''}`}
+                  className={`day-dot ${(sched.days as string[]).includes(day) ? 'filled' : ''}`}
                 >
                   {day[0]}
                 </span>
