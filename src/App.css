@@ -1343,6 +1343,50 @@
   margin-bottom: 24px;
 }
 
+/* Bypass amount slider */
+.bypass-amount-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.bypass-amount-label {
+  font-size: 13px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bypass-amount-value {
+  font-family: var(--mono);
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text-h);
+  line-height: 1;
+}
+
+.bypass-slider-wrap {
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+.bypass-slider {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+  height: 4px;
+  margin-bottom: 4px;
+}
+
+.bypass-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+
 .forfeit-summary {
   display: flex;
   align-items: center;

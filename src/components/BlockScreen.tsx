@@ -29,6 +29,7 @@ export default function BlockScreen({ contract, paymentMethod, streak, committed
 
   const [selectedCharityId, setSelectedCharityId] = useState(defaultCharity.id);
   const [showCharityPicker, setShowCharityPicker] = useState(false);
+  const [donationAmount, setDonationAmount] = useState(contract.bypassFee);
 
   const selectedCharity = CHARITIES.find(c => c.id === selectedCharityId) ?? defaultCharity;
 
@@ -65,7 +66,7 @@ export default function BlockScreen({ contract, paymentMethod, streak, committed
         appName: contract.appName,
         charity: selectedCharity.name,
         charityIcon: selectedCharity.icon,
-        amount: contract.bypassFee,
+        amount: donationAmount,
         timestamp: new Date().toISOString(),
       };
       setTimeout(() => {
@@ -101,7 +102,7 @@ export default function BlockScreen({ contract, paymentMethod, streak, committed
     return (
       <div className="block-screen block-confirm">
         <button className="back-btn" onClick={() => setStep(1)}>← Back</button>
-        <div className="confirm-amount">${contract.bypassFee}</div>
+        <div className="confirm-amount">${donationAmount % 1 === 0 ? donationAmount : donationAmount.toFixed(2)}</div>
         <p className="confirm-label">will be donated to {selectedCharity.icon} {selectedCharity.name}</p>
         <div className="hold-btn-wrap">
           <button
@@ -134,9 +135,30 @@ export default function BlockScreen({ contract, paymentMethod, streak, committed
           </div>
         )}
 
+        <div className="bypass-amount-row">
+          <span className="bypass-amount-label">Donation amount</span>
+          <span className="bypass-amount-value">
+            ${donationAmount % 1 === 0 ? donationAmount : donationAmount.toFixed(2)}
+          </span>
+        </div>
+        <div className="bypass-slider-wrap">
+          <input
+            type="range"
+            className="bypass-slider"
+            min={0.50}
+            max={1000}
+            step={0.50}
+            value={donationAmount}
+            onChange={e => setDonationAmount(parseFloat(e.target.value))}
+          />
+          <div className="bypass-slider-labels">
+            <span>$0.50</span>
+            <span>$1,000</span>
+          </div>
+        </div>
+
         <div className="forfeit-summary">
-          <span className="forfeit-amount">${contract.bypassFee}</span>
-          <span className="forfeit-arrow">→</span>
+          <span className="forfeit-arrow" style={{ fontSize: 14 }}>goes to</span>
           <div className="forfeit-charity-wrap">
             <button
               className={`forfeit-charity-btn ${availableCharities.length > 1 ? 'pickable' : ''}`}
